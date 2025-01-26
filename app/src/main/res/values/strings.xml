@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Note App</string>
+    <string name="no_notes_available">"No Notes available  "</string>
+    <string name="add_item">Add item</string>
+    <string name="arrow_back">"Arrow Back "</string>
+    <string name="add_screen">Add Screen</string>
+    <string name="save_action">Save</string>
+    <string name="entry_screen">Entry Screen</string>
+    <string name="note_content">Note Content</string>
+    <string name="required_field">Required Field</string>
+    <string name="note_title">Note title\n</string>
+    <string name="attention">Attention</string>
+    <string name="no">No</string>
+    <string name="delete">Delete</string>
+    <string name="yes">Yes</string>
+    <string name="delete_question">Are you sure you want to delete?</string>
+    <string name="note">Note</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="description">Description</string>
+    <string name="note_details">Note Details</string>
+
+</resources>
