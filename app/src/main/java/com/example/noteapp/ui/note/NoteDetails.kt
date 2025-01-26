@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 
 object NoteDetailDestination : NavigationDestination {
     override val route = "note_details"
-    override val titleRes = R.string.note_details
+    override val idRess = R.string.note_details
     const val ITEMIDARG = "itemId"
     val routeWithArgs = "$route/{$ITEMIDARG}"
 }
@@ -43,7 +43,7 @@ fun NoteDetailsScreen(
     Scaffold(
         topBar = {
             NoteTopAppBar(
-                title = stringResource(NoteDetailDestination.titleRes),
+                title = stringResource(NoteDetailDestination.idRess),
                 canNavigateBack = true,
                 navigateUp = navigateBack
             )

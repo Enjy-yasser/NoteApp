@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 
 object NoteEditDestination : NavigationDestination {
     override val route = "item_edit"
-    override val titleRes = R.string.edit_note
+    override val idRess = R.string.edit_note
     const val itemIdArg = "itemId"
     val routeWithArgs = "$route/{$itemIdArg}"
 }
@@ -47,7 +47,7 @@ fun NoteEditScreen(
     Scaffold(
         topBar = {
             NoteTopAppBar(
-                title = stringResource(NoteEditDestination.titleRes),
+                title = stringResource(NoteEditDestination.idRess),
                 canNavigateBack = true,
                 navigateUp = onNavigateUp
             )

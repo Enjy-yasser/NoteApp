@@ -22,7 +22,7 @@
 //    @Singleton
 //    @Provides
 //    fun  provideNoteDatabase(@ApplicationContext context: Context): NoteDatabase{
-//     return Room.databaseBuilder(
+////     return Room.databaseBuilder(
 //         context.applicationContext,
 //         NoteDatabase::class.java,
 //         "note_database"

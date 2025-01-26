@@ -11,12 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -37,7 +33,7 @@ import kotlinx.coroutines.launch
 
 object NoteEntryDestination : NavigationDestination {
     override val route = "note_entry"
-    override val titleRes = R.string.entry_screen
+    override val idRess = R.string.entry_screen
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

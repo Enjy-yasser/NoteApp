@@ -1,5 +1,4 @@
 package com.example.noteapp.ui.home
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -49,7 +48,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.lifecycle.viewmodel.compose.viewModel
 //import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.noteapp.NoteTopAppBar
@@ -58,7 +56,7 @@ import com.example.noteapp.ui.navigation.NavigationDestination
 import com.example.noteapp.ui.theme.NoteAppTheme
 object HomeDestination : NavigationDestination {
     override val route = "home"
-    override val titleRes = R.string.app_name
+    override val idRess = R.string.app_name
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -79,7 +77,7 @@ fun HomeScreen(
         modifier=modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             NoteTopAppBar(
-                title = stringResource(HomeDestination.titleRes),
+                title = stringResource(HomeDestination.idRess),
                 canNavigateBack = false,
                 scrollBehavior = scrollBehavior,
                 navigateUp = {},
@@ -228,7 +226,7 @@ private fun NoteItem(note: Note, onDeleteClick:()->Unit, modifier: Modifier = Mo
                 modifier = Modifier.fillMaxWidth()
             )
         }
-        Row(
+        Row (
 //            modifier = Modifier.fillMaxWidth().padding(end = dimensionResource(id = R.dimen.padding_medium))
         ) {
             Spacer(modifier = Modifier.weight(1f))
