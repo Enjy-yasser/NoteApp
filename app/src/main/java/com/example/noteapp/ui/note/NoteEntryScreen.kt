@@ -24,10 +24,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+//import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.noteapp.NoteTopAppBar
 import com.example.noteapp.R
-import com.example.noteapp.ui.AppViewModelProvider
+//import com.example.noteapp.ui.AppViewModelProvider
 import com.example.noteapp.ui.navigation.NavigationDestination
 import kotlinx.coroutines.launch
 
@@ -42,7 +43,8 @@ fun NoteEntryScreen(
     navigateBack: () -> Unit,
     navigateUp: () -> Unit,
     canNavigateBack: Boolean = true,
-    viewModel: NoteEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: NoteEntryViewModel = hiltViewModel()
+//    viewModel: NoteEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -106,16 +108,12 @@ fun InputForm(
                 onValueChanged(noteDetails.copy(title = it))
             },
             label = { Text(stringResource(R.string.note_title)) },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer
-            ),
             modifier = modifier
                 .fillMaxWidth()
                 .padding(vertical = dimensionResource(id = R.dimen.padding_small)),
             enabled = enabled,
             singleLine = true,
-            shape = MaterialTheme.shapes.medium // Rounded corners
+            shape = MaterialTheme.shapes.medium
         )
         OutlinedTextField(
             value = noteDetails.content,
@@ -123,10 +121,6 @@ fun InputForm(
                 onValueChanged(noteDetails.copy(content = it))
             },
             label = { Text(stringResource(R.string.note_content)) },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer
-            ),
             modifier = modifier
                 .fillMaxWidth()
                 .padding(vertical = dimensionResource(id = R.dimen.padding_small)),

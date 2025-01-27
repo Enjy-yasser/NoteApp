@@ -1,5 +1,5 @@
 package com.example.noteapp.ui.home
-import androidx.compose.foundation.background
+//import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,7 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.noteapp.R
-import com.example.noteapp.data.Note
+import com.example.noteapp.domain.models.Note
 import kotlin.collections.listOf
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.filled.Delete
@@ -48,10 +48,12 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.viewmodel.compose.viewModel
+//import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+//import androidx.lifecycle.viewmodel.compose.viewModel
 //import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.noteapp.NoteTopAppBar
-import com.example.noteapp.ui.AppViewModelProvider
+//import com.example.noteapp.ui.AppViewModelProvider
 import com.example.noteapp.ui.navigation.NavigationDestination
 import com.example.noteapp.ui.theme.NoteAppTheme
 object HomeDestination : NavigationDestination {
@@ -64,11 +66,12 @@ object HomeDestination : NavigationDestination {
 fun HomeScreen(
     navigateToNoteEntry : ()->Unit,
     navigateToNoteUpdate: (Int)->Unit,
-//    viewModel: HomeViewModel = hiltViewModel()
-    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    viewModel: HomeViewModel = hiltViewModel(),
+//    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory),
     modifier: Modifier= Modifier) {
 
     val homeUiState by viewModel.homeUiState.collectAsState()
+
     println("HomeUiState noteList size: ${homeUiState.noteList.size}")
 
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -80,7 +83,6 @@ fun HomeScreen(
                 title = stringResource(HomeDestination.idRess),
                 canNavigateBack = false,
                 scrollBehavior = scrollBehavior,
-                navigateUp = {},
             )
         },
         floatingActionButton = {
@@ -100,9 +102,7 @@ fun HomeScreen(
         innerPadding -> HomeBody(
             noteList = homeUiState.noteList,
             onNoteClick = navigateToNoteUpdate,
-            modifier= modifier
-                .fillMaxSize()
-                .background(color = Color.Black),
+            modifier= modifier.fillMaxSize(),
             contentPadding=innerPadding,
         )
 
@@ -117,18 +117,17 @@ fun HomeBody(
     contentPadding: PaddingValues = PaddingValues(3.dp),
 ) {
     println("Recomposing HomeBody with ${noteList.size} notes")
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
     ) {
         if (noteList.isEmpty()) {
             Text(
                 text = stringResource(R.string.no_notes_available),
                 textAlign = TextAlign.Center,
-//                style = TextStyle(color = Color.White),
+                color =Color.Black,
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(contentPadding)
             )
 
         } else {
@@ -148,7 +147,8 @@ private fun NoteList(
     onNoteClick: (Note) -> Unit,
     contentPadding:PaddingValues,
     modifier: Modifier= Modifier,
-    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: HomeViewModel = hiltViewModel(),
+//    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
 
 ){
     val (noteToDelete, setNoteToDelete) =remember { mutableStateOf<Note?>(null) }
@@ -226,9 +226,7 @@ private fun NoteItem(note: Note, onDeleteClick:()->Unit, modifier: Modifier = Mo
                 modifier = Modifier.fillMaxWidth()
             )
         }
-        Row (
-//            modifier = Modifier.fillMaxWidth().padding(end = dimensionResource(id = R.dimen.padding_medium))
-        ) {
+        Row  {
             Spacer(modifier = Modifier.weight(1f))
             // Delete Button
             IconButton(onClick = { onDeleteClick() }) {
@@ -240,13 +238,6 @@ private fun NoteItem(note: Note, onDeleteClick:()->Unit, modifier: Modifier = Mo
         }
 
 }
-}
-@Preview(showBackground = true)
-@Composable
-fun HomeBodyPreview() {
-    NoteAppTheme {
-        HomeBody(listOf(Note(1, "E", "E")), onNoteClick = {})
-    }
 }
 
 @Preview(showBackground = true)
@@ -262,7 +253,7 @@ fun HomeBodyEmptyListPreview() {
 fun HomeItemPreview() {
     NoteAppTheme {
         NoteItem(
-            Note(2, "Game", "EEE"),
+            Note(2, "Enjyyy", "Yasserr"),
             onDeleteClick = {}
         )
     }

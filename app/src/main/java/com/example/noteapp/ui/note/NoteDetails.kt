@@ -14,11 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
-//import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.noteapp.NoteTopAppBar
 import com.example.noteapp.R
-import com.example.noteapp.ui.AppViewModelProvider
+//import com.example.noteapp.ui.AppViewModelProvider
 import com.example.noteapp.ui.navigation.NavigationDestination
 import kotlinx.coroutines.launch
 
@@ -32,12 +31,14 @@ object NoteDetailDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NoteDetailsScreen(
-    navigateToEditNote: (String) -> Unit,
+    navigateToEditNote: (Int) -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: NoteDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: NoteDetailsViewModel = hiltViewModel(),
+
+//    viewModel: NoteDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
-    val uiState = viewModel.uiState.collectAsState()
+    val uiState = viewModel.uiState.collectAsState().value
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
@@ -50,7 +51,8 @@ fun NoteDetailsScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { navigateToEditNote(uiState.value.noteDetails.id.toString()) },
+                onClick = { navigateToEditNote(uiState.noteDetails.id) },
+//                onClick = { navigateToEditNote(uiState.value.noteDetails.id.toString()) },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(
                     end = WindowInsets.safeDrawing.asPaddingValues()
@@ -74,7 +76,8 @@ fun NoteDetailsScreen(
                 )
                 .verticalScroll(rememberScrollState())
         ) {
-            val note = uiState.value.noteDetails
+            val note = uiState.noteDetails
+//            val note = uiState.value.noteDetails
             NoteDetails(note = note, modifier = Modifier.fillMaxWidth())
 
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))

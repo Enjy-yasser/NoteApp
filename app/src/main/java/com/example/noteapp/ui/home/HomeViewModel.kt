@@ -3,21 +3,21 @@ package com.example.noteapp.ui.home
 //import android.R.attr.id
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.noteapp.data.Note
-//import com.example.noteapp.data.NoteRepository
-import com.example.noteapp.data.OfflineNoteRepository
-//import dagger.hilt.android.lifecycle.HiltViewModel
+import com.example.noteapp.domain.models.Note
+//import com.example.noteapp.domain.repository.NoteRepository
+import com.example.noteapp.domain.repository.OfflineNoteRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-//import javax.inject.Inject
-
-//@HiltViewModel
-//class HomeViewModel @Inject constructor(
-class HomeViewModel (
+import javax.inject.Inject
+//
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+//class HomeViewModel (
    private val notesRepository : OfflineNoteRepository) : ViewModel() {
         val homeUiState : StateFlow<HomeUiState> =
             notesRepository.getAllNoteItem().map { HomeUiState(it) }

@@ -3,18 +3,21 @@ package com.example.noteapp.ui.note
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.noteapp.data.NoteRepository
-//import dagger.hilt.android.lifecycle.HiltViewModel
+import com.example.noteapp.domain.models.NoteDetailsUiState
+import com.example.noteapp.domain.models.toNoteDetails
+import com.example.noteapp.domain.repository.NoteRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-//import javax.inject.Inject
+import javax.inject.Inject
 
-//@HiltViewModel
-class NoteDetailsViewModel ( savedStateHandle: SavedStateHandle,
-//class NoteDetailsViewModel @Inject constructor( savedStateHandle: SavedStateHandle,
+@HiltViewModel
+//class NoteDetailsViewModel ( savedStateHandle: SavedStateHandle,
+class NoteDetailsViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
      private val noteRepository: NoteRepository) : ViewModel() {
 
     private val noteId: Int = checkNotNull(savedStateHandle[NoteDetailDestination.ITEMIDARG])
@@ -39,6 +42,3 @@ class NoteDetailsViewModel ( savedStateHandle: SavedStateHandle,
     }
 }
 
-data class NoteDetailsUiState(
-    val noteDetails: NoteDetails = NoteDetails()
-)

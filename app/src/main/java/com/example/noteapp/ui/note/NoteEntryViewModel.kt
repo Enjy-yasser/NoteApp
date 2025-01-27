@@ -2,20 +2,19 @@ package com.example.noteapp.ui.note
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.noteapp.data.NoteRepository
+import com.example.noteapp.domain.repository.NoteRepository
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import com.example.noteapp.data.Note
-//import dagger.hilt.android.lifecycle.HiltViewModel
-//import javax.inject.Inject
-
+import com.example.noteapp.domain.models.Note
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /*
 * Viewmodel to valdiate and insert in database
 *  */
-//@HiltViewModel
-class NoteEntryViewModel(
-//class NoteEntryViewModel @Inject constructor(
+@HiltViewModel
+//class NoteEntryViewModel(
+class NoteEntryViewModel @Inject constructor(
     private val noteRepository: NoteRepository
 ) : ViewModel() {
 
@@ -30,11 +29,6 @@ class NoteEntryViewModel(
     }
 
     suspend fun saveNote() {
-        if (validateInput()) {
-            noteRepository.insertNote(noteUiState.noteDetails.toItem())
-        }
-    }
-    suspend fun deleteNote() {
         if (validateInput()) {
             noteRepository.insertNote(noteUiState.noteDetails.toItem())
         }

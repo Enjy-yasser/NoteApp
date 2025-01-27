@@ -19,20 +19,20 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-//import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+//import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.noteapp.NoteTopAppBar
-import com.example.noteapp.R
-import com.example.noteapp.ui.AppViewModelProvider
+//import com.example.noteapp.ui.AppViewModelProvider
 import com.example.noteapp.ui.navigation.NavigationDestination
 import com.example.noteapp.ui.theme.NoteAppTheme
+import com.example.noteapp.R
 import kotlinx.coroutines.launch
 
 object NoteEditDestination : NavigationDestination {
     override val route = "item_edit"
     override val idRess = R.string.edit_note
-    const val itemIdArg = "itemId"
-    val routeWithArgs = "$route/{$itemIdArg}"
+    const val ID = "itemId"
+    val routeWithArgs = "$route/{$ID}"
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +40,8 @@ fun NoteEditScreen(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: NoteEditViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: NoteEditViewModel = hiltViewModel()
+//    viewModel: NoteEditViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -58,13 +59,12 @@ fun NoteEditScreen(
             modifier = Modifier
                 .padding(
                     start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
-                    top = innerPadding.calculateTopPadding(),
+                    top = innerPadding.calculateTopPadding() +dimensionResource(R.dimen.padding_medium),
                     end = innerPadding.calculateEndPadding(LocalLayoutDirection.current),
                 )
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize()
         ) {
-            // Entry Form for Title and Content
             InputForm(
                 noteDetails = viewModel.noteUiState.noteDetails,
                 onValueChanged = viewModel::updateUiState
@@ -73,7 +73,7 @@ fun NoteEditScreen(
             Button(
                 onClick = {
                     coroutineScope.launch {
-                        viewModel.updateItem()
+                        viewModel.updateNote()
                         navigateBack()
                     }
                 },

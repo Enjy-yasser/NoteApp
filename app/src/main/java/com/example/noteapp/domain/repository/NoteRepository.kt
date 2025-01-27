@@ -1,5 +1,6 @@
-package com.example.noteapp.data
+package com.example.noteapp.domain.repository
 
+import com.example.noteapp.domain.models.Note
 import kotlinx.coroutines.flow.Flow
 
 

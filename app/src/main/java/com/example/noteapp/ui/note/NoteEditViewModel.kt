@@ -6,17 +6,16 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.noteapp.data.NoteRepository
-//import dagger.hilt.android.lifecycle.HiltViewModel
+import com.example.noteapp.domain.repository.NoteRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-//import javax.inject.Inject
+import javax.inject.Inject
 
-//@HiltViewModel
-class NoteEditViewModel(
-//class ItemEditViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+@HiltViewModel
+//class NoteEditViewModel( savedStateHandle: SavedStateHandle,
+class NoteEditViewModel @Inject constructor( savedStateHandle: SavedStateHandle,
     private val noteRepository: NoteRepository
 ) : ViewModel() {
 
@@ -24,20 +23,19 @@ class NoteEditViewModel(
     var noteUiState by mutableStateOf(NoteUiState())
         private set
 
-    private val itemId: Int = checkNotNull(savedStateHandle[NoteEditDestination.itemIdArg])
+    private val noteId: Int = checkNotNull(savedStateHandle[NoteEditDestination.ID])
 
     init {
         viewModelScope.launch {
-            noteUiState = noteRepository.getNoteStream(itemId)
+            noteUiState = noteRepository.getNoteStream(noteId)
                 .filterNotNull()
                 .first()
                 .toNoteUiState(true)
         }
     }
 
-    //Update the item in the noteRepository
-
-    suspend fun updateItem() {
+    //Update the note in the noteRepository
+    suspend fun updateNote() {
         if (validateInput(noteUiState.noteDetails)) {
             noteRepository.updateNote(noteUiState.noteDetails.toItem())
         }
