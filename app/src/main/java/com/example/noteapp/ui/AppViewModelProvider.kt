@@ -19,23 +19,23 @@
 //        initializer {
 //            NoteEditViewModel(
 //                this.createSavedStateHandle(),
-//                inventoryApplication().container.notesRepository
+//                noteApplication().container.notesRepository
 //            )
 //        }
 //        initializer {
-//            NoteEntryViewModel(inventoryApplication().container.notesRepository)
+//            NoteEntryViewModel(noteApplication().container.notesRepository)
 //        }
 //        initializer {
 //            NoteDetailsViewModel(
 //                this.createSavedStateHandle(),
-//                inventoryApplication().container.notesRepository
+//                noteApplication().container.notesRepository
 //            )
 //        }
 //        initializer {
-//            HomeViewModel(inventoryApplication().container.notesRepository as OfflineNoteRepository) //casting 3lshan offlinenotesrepository
+//            HomeViewModel(noteApplication().container.notesRepository as OfflineNoteRepository) //casting 3lshan offlinenotesrepository
 //        }
 //    }
 //}
 //
-//fun CreationExtras.inventoryApplication(): NotesApplication =
+//fun CreationExtras.noteApplication(): NotesApplication =
 //    (this[AndroidViewModelFactory.APPLICATION_KEY] as NotesApplication)

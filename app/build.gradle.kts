@@ -43,6 +43,10 @@ android {
             buildFeatures {
                 compose = true
             }
+            kapt {
+                correctErrorTypes= true
+            }
+
         }
         dependencies {
             implementation(libs.androidx.core.ktx)
@@ -73,8 +77,8 @@ android {
             implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
             // Testing
-            androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-            androidTestImplementation("androidx.test.ext:junit:1.2.1")
+//            androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+//            androidTestImplementation("androidx.test.ext:junit:1.2.1")
         }
     }
 }

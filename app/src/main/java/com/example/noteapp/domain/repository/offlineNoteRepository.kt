@@ -14,6 +14,11 @@ not supported by latest version kapt w lazem version kotlin a2al mn 2
 
 //w: Kapt currently doesn't support language version 2.0+. Falling back to 1.9.
 
+/*
+HiltViewModel specific ll viewmodel lifecycle management
+law 3yzen hilt y provide dependency ll viewmodel
+hena lazem inject 3lshan n allow hilt provide repository whereever it is required
+ */
 class OfflineNoteRepository @Inject constructor(private val noteDao: NoteDao) : NoteRepository {
     override fun getAllNoteItem(): Flow<List<Note>> =noteDao.getAllNotes()
     override fun getNoteStream(id: Int): Flow<Note?> =noteDao.getNote(id)
