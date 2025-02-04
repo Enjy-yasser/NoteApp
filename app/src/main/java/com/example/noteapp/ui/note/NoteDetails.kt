@@ -25,7 +25,8 @@ object NoteDetailDestination : NavigationDestination {
     override val route = "note_details"
     override val idRess = R.string.note_details
     const val ITEMIDARG = "itemId"
-    val routeWithArgs = "$route/{$ITEMIDARG}"
+    val routeWithArgs = "$route/{$ITEMIDARG}" //"note_details/100"
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

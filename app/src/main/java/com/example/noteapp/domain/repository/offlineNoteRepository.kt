@@ -11,9 +11,7 @@ import javax.inject.Inject
 not supported by latest version kapt w lazem version kotlin a2al mn 2
  */
 //@Singleton daaaaaaaaaaaaaaaaaaaaaaaaaaaaaa eeeerrrrrrrrrrrorrrrrrrrrrrrrrr
-
 //w: Kapt currently doesn't support language version 2.0+. Falling back to 1.9.
-
 /*
 HiltViewModel specific ll viewmodel lifecycle management
 law 3yzen hilt y provide dependency ll viewmodel

@@ -25,6 +25,7 @@ import com.example.noteapp.ui.note.NoteEntryViewModel
 
 //import com.example.noteapp.ui.note.NoteEntryViewModel
 
+// manage navigation logic and set up navigation routes
 @Composable
 fun NoteNavHost(
     navController: NavHostController,
@@ -36,8 +37,13 @@ fun NoteNavHost(
         startDestination = HomeDestination.route,
         modifier = modifier,
     ) {
+        //composable route 3lshan kol screen in compose app 3obara 3n composable function
+        // 3lshan keda doesnt require fragement aw activity
         composable(route = HomeDestination.route) {
+            //tab3an injecting ma3 hilt hy provide required dependency repository
             val homeViewModel: HomeViewModel = hiltViewModel()
+            //inject viewmodel for each screen
+            // 3lshan kol screen leha its own data w viewmodel by store w mange ui related data independelty
 //            val homeViewModel: HomeViewModel = hiltViewModel()
             HomeScreen(
                 viewModel = homeViewModel,

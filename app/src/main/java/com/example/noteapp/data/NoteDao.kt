@@ -1,6 +1,5 @@
 package com.example.noteapp.data
 
-//import androidx.room.Dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -9,14 +8,12 @@ import androidx.room.Update
 import com.example.noteapp.domain.models.Note
 import kotlinx.coroutines.flow.Flow
 
-
 @Dao
 interface NoteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(notes: Note)
     // suspend 3lshan database takes long time to execute f hy run on separate thread
-
     @Update
     suspend fun update(notes: Note)
 
@@ -26,8 +23,6 @@ interface NoteDao {
     @Query("DELETE FROM notes WHERE id = :id")
     suspend fun delete(id: Int)
 
-    @Query("SELECT * from notes WHERE id = :id")
+    @Query("SELECT * from notes WHERE id = :id") // Flow real time updates
     fun getNote(id: Int): Flow<Note>
-
-
 }

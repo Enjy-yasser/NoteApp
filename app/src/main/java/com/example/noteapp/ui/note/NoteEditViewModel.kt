@@ -15,26 +15,36 @@ import javax.inject.Inject
 
 @HiltViewModel
 //class NoteEditViewModel( savedStateHandle: SavedStateHandle,
-class NoteEditViewModel @Inject constructor( savedStateHandle: SavedStateHandle,
-    private val noteRepository: NoteRepository
+class NoteEditViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle, // da 3lshan a retrive note id from navigation
+    private val noteRepository: NoteRepository //Provides access to the note database
 ) : ViewModel() {
 
     //current item ui state
     var noteUiState by mutableStateOf(NoteUiState())
-        private set
+        private set //prevent external modifications
 
     private val noteId: Int = checkNotNull(savedStateHandle[NoteEditDestination.ID])
 
     init {
+        //launches a coroutine so that the data retrieval happens asynchronously
+        // without blocking the UI
         viewModelScope.launch {
             noteUiState = noteRepository.getNoteStream(noteId)
-                .filterNotNull()
-                .first()
-                .toNoteUiState(true)
+                .filterNotNull() //ensures only valid notes are processed.
+                .first() //retrive first note from stream
+                .toNoteUiState(true) //convert to noteuistate
         }
     }
+    /*
+    Runs when the ViewModel is created.
+       Starts a coroutine to fetch the note asynchronously.
+       Retrieves the note as a Flow, ensuring it's not null.
+       Takes the first valid note, converts it to NoteUiState, and updates noteUiState.
+       Updates UI state, triggering UI recomposition in Compose.
+     */
 
-    //Update the note in the noteRepository
+    //Update the note in the noteRepository law input valid w y save fy reposotiry
     suspend fun updateNote() {
         if (validateInput(noteUiState.noteDetails)) {
             noteRepository.updateNote(noteUiState.noteDetails.toItem())
@@ -45,7 +55,7 @@ class NoteEditViewModel @Inject constructor( savedStateHandle: SavedStateHandle,
         noteUiState =
             NoteUiState(noteDetails = noteDetails, isEntryValid = validateInput(noteDetails))
     }
-
+    // da 3lshan lazem myb2sh blank
     private fun validateInput(uiState: NoteDetails = noteUiState.noteDetails): Boolean {
         return with(uiState) {
             title.isNotBlank() && content.isNotBlank()

@@ -20,12 +20,13 @@ class NoteEntryViewModel @Inject constructor(
 
     //current ui state
     var noteUiState by mutableStateOf(NoteUiState())
-        private set
+        private set //PREVENT OUTER MODIFICATIONS
 
-    //update ui state
+    //update ui state when user enters data
     fun updateUiState(noteDetails: NoteDetails) {
         noteUiState =
             NoteUiState(noteDetails = noteDetails, isEntryValid = validateInput(noteDetails))
+        //call validate input to check if input is valid
     }
 
     suspend fun saveNote() {
@@ -41,15 +42,16 @@ class NoteEntryViewModel @Inject constructor(
 }
 
 data class NoteUiState(
-    val noteDetails: NoteDetails = NoteDetails(),
-    val isEntryValid:Boolean=false
+    val noteDetails: NoteDetails = NoteDetails(), // actual note content
+    val isEntryValid:Boolean=false //whether the input is valid
 )
 data class NoteDetails(
     val id: Int = 0,
     val title: String = "",
     val content: String = "")
 /*
-Extension function to convert uistate ...> note
+Extension function to convert noteDetails ...> Note
+3lshan UI and database models are separate.
  */
 fun NoteDetails.toItem(): Note = Note(
     id = id,
@@ -57,18 +59,26 @@ fun NoteDetails.toItem(): Note = Note(
     content=content
 )
 /*
-Extension function to convert note ...> uiState
+Extension function to convert note ...> NoteUiState
+lama a load note mn database ll ui
  */
 
 fun Note.toNoteUiState(isEntryValid: Boolean = false): NoteUiState = NoteUiState(
     noteDetails = this.toNoteDetails(),
     isEntryValid = isEntryValid
 )
-
+/*
+Extracts only the important details from a Note.
+Lama a display only the note details in the UI.
+ */
     fun Note.toNoteDetails(): NoteDetails = NoteDetails(
         id = id,
         title = title ,
         content=content
     )
 
-
+/*
+toItem()	Converts UI note to database note	NoteDetails → Note
+toNoteUiState()	Converts database note to UI state	Note → NoteUiState
+toNoteDetails()	Extracts note details for UI	Note → NoteDetails
+ */

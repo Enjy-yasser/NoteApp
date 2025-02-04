@@ -10,7 +10,7 @@ import dagger.hilt.android.HiltAndroidApp
 //n apply dagger hilt ..> Dependency injection
 
 @HiltAndroidApp
- class NotesApplication : Application()
+ class  NotesApplication : Application()
 //{
 //    @Inject
 //    lateinit var navigationManager: NavigationManager

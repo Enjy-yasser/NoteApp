@@ -5,6 +5,7 @@ import com.example.noteapp.ui.note.NoteEditDestination
 import com.example.noteapp.ui.note.NoteEntryDestination
 import javax.inject.Inject
 
+//helper function to navigate between screens
 //class NavigationManager{
 class NavigationManager @Inject constructor() {
     fun navigateToNoteEntry(navController: NavHostController) {
